@@ -1,0 +1,2 @@
+rootProject.name='ProvaCarte'
+include ':app'
