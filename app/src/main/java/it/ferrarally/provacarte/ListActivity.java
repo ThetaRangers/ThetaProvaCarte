@@ -37,7 +37,7 @@ public class ListActivity extends AppCompatActivity {
         Holder(){
             rvCards = findViewById(R.id.rvCards);
 
-            RecyclerView.LayoutManager layoutManager = new GridLayoutManager(ListActivity.this, 1);
+            RecyclerView.LayoutManager layoutManager = new GridLayoutManager(ListActivity.this, 2);
             rvCards.setLayoutManager(layoutManager);
 
             CardAdapter mAdapter = new CardAdapter(createList());
@@ -128,7 +128,6 @@ public class ListActivity extends AppCompatActivity {
                 ivPower = itemView.findViewById(R.id.ivPower);
                 btnExpand = itemView.findViewById(R.id.btnExpand);
                 card = itemView.findViewById(R.id.cdPower);
-
             }
         }
     }
