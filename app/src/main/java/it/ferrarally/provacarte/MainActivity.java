@@ -2,10 +2,14 @@ package it.ferrarally.provacarte;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioGroup;
+
+import com.google.android.material.card.MaterialCardView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,17 +41,11 @@ public class MainActivity extends AppCompatActivity {
             buttonDrag.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(MainActivity.this, DragExample.class);
+                   // Intent intent = new Intent(MainActivity.this, DragExample.class);
 
-                    startActivity(intent);
-                }
-            });
+                   //Intent intent = new Intent(MainActivity.this, DragSecondExample.class);
 
-            final Button buttonContacts = findViewById(R.id.btnContacts);
-            buttonContacts.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(MainActivity.this, EventsActivity.class);
+                    Intent intent = new Intent(MainActivity.this, DragRecExample.class);
 
                     startActivity(intent);
                 }
