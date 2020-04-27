@@ -1,0 +1,129 @@
+package it.ferrarally.provacarte;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.app.ActivityOptions;
+import android.content.Intent;
+import android.os.Build;
+import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.google.android.material.card.MaterialCardView;
+
+public class EventsActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_events);
+
+        new Holder();
+    }
+
+    class Holder {
+        final RecyclerView rvEvents;
+
+        public Holder(){
+            rvEvents = findViewById(R.id.rvEvents);
+
+
+            RecyclerView.LayoutManager layoutManager = new GridLayoutManager(EventsActivity.this, 2);
+            rvEvents.setLayoutManager(layoutManager);
+
+            rvEvents.setAdapter(new EventsAdapter(getEvents()));
+        }
+
+        private List<Event> getEvents(){
+            List<Event> eventsList = new ArrayList<>();
+
+            eventsList.add(new Event("Evento1", "bello questo evento 1", R.drawable.power));
+            eventsList.add(new Event("Evento2", "bello questo evento 2", R.drawable.power));
+
+            return eventsList;
+        }
+    }
+
+    class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.Holder>{
+        List<Event> eventsList;
+
+        EventsAdapter(List<Event> eventsList){
+            this.eventsList = eventsList;
+        }
+
+
+        @NonNull
+        @Override
+        public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            ConstraintLayout cl;
+            //Inflate row of recycle view
+            cl = (ConstraintLayout) LayoutInflater
+                    .from(parent.getContext())
+                    .inflate(R.layout.event, parent, false);
+
+            return new Holder(cl);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull Holder holder, int position) {
+            holder.tvName.setText(eventsList.get(position).eventName);
+            holder.tvDescription.setText(eventsList.get(position).eventDescription);
+            holder.ivPreview.setImageResource(eventsList.get(position).imageId);
+
+            final int i = position;
+            final ImageView iv = holder.ivPreview;
+
+            holder.card.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent data = new Intent(EventsActivity.this, EventDetail.class);
+                    data.putExtra("Event", eventsList.get(i));
+
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        ActivityOptions options = ActivityOptions
+                                .makeSceneTransitionAnimation(EventsActivity.this, (View) iv, "imageExpansion");
+                        startActivity(data, options.toBundle());
+                    } else {
+                        startActivity(data);
+                    }
+                }
+            });
+        }
+
+        @Override
+        public int getItemCount() {
+            return eventsList.size();
+        }
+
+        class Holder extends RecyclerView.ViewHolder{
+            final TextView tvName;
+            final TextView tvDescription;
+            final ImageView ivPreview;
+            final MaterialCardView card;
+
+            public Holder(@NonNull View itemView) {
+                super(itemView);
+
+                tvName = itemView.findViewById(R.id.tvName);
+                tvDescription = itemView.findViewById(R.id.tvDescription);
+                ivPreview = itemView.findViewById(R.id.ivPreview);
+                card = itemView.findViewById(R.id.card);
+            }
+        }
+    }
+
+}
