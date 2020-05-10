@@ -60,6 +60,16 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
+
+            final Button buttonSwipe = findViewById(R.id.btnSwipe);
+            buttonSwipe.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(MainActivity.this, SwipeCard.class);
+
+                    startActivity(intent);
+                }
+            });
         }
     }
 }

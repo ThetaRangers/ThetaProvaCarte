@@ -123,7 +123,7 @@ public class ListActivity extends AppCompatActivity {
             public Holder(@NonNull View itemView) {
                 super(itemView);
 
-                tvName = itemView.findViewById(R.id.tvName);
+                tvName = itemView.findViewById(R.id.tvText);
                 tvDescription = itemView.findViewById(R.id.tvDescription);
                 ivPower = itemView.findViewById(R.id.ivPower);
                 btnExpand = itemView.findViewById(R.id.btnExpand);

@@ -4,15 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -118,7 +115,7 @@ public class EventsActivity extends AppCompatActivity {
             public Holder(@NonNull View itemView) {
                 super(itemView);
 
-                tvName = itemView.findViewById(R.id.tvName);
+                tvName = itemView.findViewById(R.id.tvText);
                 tvDescription = itemView.findViewById(R.id.tvDescription);
                 ivPreview = itemView.findViewById(R.id.ivPreview);
                 card = itemView.findViewById(R.id.card);

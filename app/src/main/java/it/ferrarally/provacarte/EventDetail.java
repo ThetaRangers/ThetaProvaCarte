@@ -25,7 +25,7 @@ public class EventDetail extends AppCompatActivity {
 
         Holder(Event event){
             ivEvent = findViewById(R.id.ivEvent);
-            tvName = findViewById(R.id.tvName);
+            tvName = findViewById(R.id.tvText);
 
             ivEvent.setImageResource(event.imageId);
             tvName.setText(event.eventName);
