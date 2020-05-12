@@ -7,12 +7,16 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.graphics.Canvas;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+
+import com.google.android.material.card.MaterialCardView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,6 +64,63 @@ public class SwipeCard extends AppCompatActivity {
 
                     adapter.notifyItemChanged(viewHolder.getAdapterPosition());
                 }
+
+                @Override
+                public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
+                    if (viewHolder != null){
+                        final View foregroundView = ((Adapter.Holder) viewHolder).cdSwipe;
+
+                        getDefaultUIUtil().onSelected(foregroundView);
+                    }
+                }
+
+                @Override
+                public void onChildDraw(Canvas c, RecyclerView recyclerView,
+                                        RecyclerView.ViewHolder viewHolder, float dX, float dY,
+                                        int actionState, boolean isCurrentlyActive) {
+                    final View foregroundView = ((Adapter.Holder) viewHolder).cdSwipe;
+
+                    drawBackground(viewHolder, dX, actionState);
+
+                    getDefaultUIUtil().onDraw(c, recyclerView, foregroundView, dX, dY,
+                            actionState, isCurrentlyActive);
+                }
+
+                @Override
+                public void onChildDrawOver(Canvas c, RecyclerView recyclerView,
+                                            RecyclerView.ViewHolder viewHolder, float dX, float dY,
+                                            int actionState, boolean isCurrentlyActive) {
+                    final View foregroundView = ((Adapter.Holder) viewHolder).cdSwipe;
+
+                    drawBackground(viewHolder, dX, actionState);
+
+                    getDefaultUIUtil().onDrawOver(c, recyclerView, foregroundView, dX, dY,
+                            actionState, isCurrentlyActive);
+                }
+
+                @Override
+                public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder){
+                    final View backgroundView = ((Adapter.Holder) viewHolder).cdBackground;
+                    final View foregroundView = ((Adapter.Holder) viewHolder).cdSwipe;
+
+                    // TODO: should animate out instead. how?
+                    backgroundView.setRight(0);
+
+
+                    getDefaultUIUtil().clearView(foregroundView);
+                }
+
+                private void drawBackground(RecyclerView.ViewHolder viewHolder, float dX, int actionState) {
+                    final View backgroundView = ((Adapter.Holder) viewHolder).cdBackground;
+
+                    if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
+                        //noinspection NumericCastThatLosesPrecision
+                        backgroundView.setRight((int) Math.max(dX, 0));
+
+                        /*if (dX > 0) backgroundView.setRight((int) dX);
+                        else backgroundView.setRight(backgroundView.getWidth() - (int) dX);*/
+                    }
+                }
             };
 
             itemTouchHelper = new ItemTouchHelper(callback);
@@ -98,13 +159,16 @@ public class SwipeCard extends AppCompatActivity {
         }
 
         class Holder extends RecyclerView.ViewHolder{
-
+            public final MaterialCardView cdBackground;
+            public final MaterialCardView cdSwipe;
             final TextView tvText;
 
             public Holder(@NonNull View itemView) {
                 super(itemView);
 
                 tvText = itemView.findViewById(R.id.tvText);
+                cdBackground = itemView.findViewById(R.id.cdBackground);
+                cdSwipe = itemView.findViewById(R.id.cdSwipe);
             }
         }
     }

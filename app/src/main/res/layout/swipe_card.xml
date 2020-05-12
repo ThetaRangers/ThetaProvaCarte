@@ -6,7 +6,20 @@
     android:layout_height="wrap_content">
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cdPower"
+        android:id="@+id/cdBackground"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
+        android:backgroundTint="#4CAF50"
+        android:elevation="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/cdSwipe"
+        app:layout_constraintEnd_toEndOf="@+id/cdSwipe"
+        app:layout_constraintStart_toStartOf="@+id/cdSwipe"
+        app:layout_constraintTop_toTopOf="@+id/cdSwipe" />
+    >
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cdSwipe"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
@@ -48,4 +61,5 @@
         </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
