@@ -44,7 +44,8 @@
                     android:id="@+id/tvText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?attr/textAppearanceHeadline6" />
+                    android:textAppearance="?attr/textAppearanceHeadline6"
+                    android:transitionName="nameTransition" />
 
                 <TextView
                     android:id="@+id/tvDescription"

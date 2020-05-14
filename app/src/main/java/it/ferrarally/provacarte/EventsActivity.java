@@ -10,6 +10,7 @@ import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -82,6 +83,7 @@ public class EventsActivity extends AppCompatActivity {
 
             final int i = position;
             final ImageView iv = holder.ivPreview;
+            final TextView tv = holder.tvName;
 
             holder.card.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -91,8 +93,10 @@ public class EventsActivity extends AppCompatActivity {
 
 
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        Pair<View, String> p1 = Pair.create((View)iv, "imageExpansion");
+                        Pair<View, String> p2 = Pair.create((View)tv, "nameTransition");
                         ActivityOptions options = ActivityOptions
-                                .makeSceneTransitionAnimation(EventsActivity.this, (View) iv, "imageExpansion");
+                                .makeSceneTransitionAnimation(EventsActivity.this, p1, p2);
                         startActivity(data, options.toBundle());
                     } else {
                         startActivity(data);

@@ -40,15 +40,15 @@ public class SwipeCard extends AppCompatActivity {
             rvSwipe.setHasFixedSize(true);
 
             List<String> strings = new ArrayList<>();
-            strings.add("Eila");
+            strings.add("Bello Questo Paesaggio zio");
             strings.add("gamberone");
 
             final Adapter adapter = new Adapter(strings);
             rvSwipe.setAdapter(adapter);
 
-            ItemTouchHelper itemTouchHelper = null;
+            ItemTouchHelper itemTouchHelper;
 
-            ItemTouchHelper.SimpleCallback callback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            ItemTouchHelper.SimpleCallback callback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
                 @Override
                 public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
                     return false;
@@ -57,11 +57,10 @@ public class SwipeCard extends AppCompatActivity {
                 @Override
                 public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                     if (direction == ItemTouchHelper.RIGHT) {
-                        Log.w("THETA", "Hey");
-                    } else if (direction == ItemTouchHelper.LEFT) {
                         Log.w("THETA", "Hey Gamberone");
                     }
 
+                    //Makes the item reappear after swipe
                     adapter.notifyItemChanged(viewHolder.getAdapterPosition());
                 }
 
@@ -114,7 +113,6 @@ public class SwipeCard extends AppCompatActivity {
                     final View backgroundView = ((Adapter.Holder) viewHolder).cdBackground;
 
                     if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
-                        //noinspection NumericCastThatLosesPrecision
                         backgroundView.setRight((int) Math.max(dX, 0));
 
                         /*if (dX > 0) backgroundView.setRight((int) dX);
