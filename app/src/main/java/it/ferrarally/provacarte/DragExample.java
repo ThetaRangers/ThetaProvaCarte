@@ -6,6 +6,7 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.view.AccessibilityDelegateCompat;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,6 +46,7 @@ public class DragExample extends AppCompatActivity {
                         @Override
                         public void onViewCaptured(@NonNull View view, int i) {
                             MaterialCardView card = (MaterialCardView) view;
+                            Log.w("THETA", "card captured");
                             card.setDragged(true);
 
                         }
@@ -52,6 +54,7 @@ public class DragExample extends AppCompatActivity {
                         @Override
                         public void onViewReleased(@NonNull View view, float v, float v1) {
                             MaterialCardView card = (MaterialCardView) view;
+                            Log.w("THETA", "card released");
                             card.setDragged(false);
 
                         }
@@ -103,6 +106,5 @@ public class DragExample extends AppCompatActivity {
             }
 
         }
-
     }
 }

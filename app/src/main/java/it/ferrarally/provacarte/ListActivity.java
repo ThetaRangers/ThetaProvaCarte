@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.material.button.MaterialButton;
@@ -23,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ListActivity extends AppCompatActivity {
+    private RecyclerView rvCards;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +35,6 @@ public class ListActivity extends AppCompatActivity {
     }
 
     class Holder {
-        final RecyclerView rvCards;
         Holder(){
             rvCards = findViewById(R.id.rvCards);
 
@@ -55,10 +56,13 @@ public class ListActivity extends AppCompatActivity {
 
             return list;
         }
+
     }
+
 
     class CardAdapter extends RecyclerView.Adapter<CardAdapter.Holder>{
         private List<PowerRanger> list;
+        private int mExpandedPosition = -1;
 
         CardAdapter(List<PowerRanger> list){
             this.list = list;
@@ -78,27 +82,32 @@ public class ListActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(@NonNull Holder holder, int position) {
+            final boolean isExpanded = position==mExpandedPosition;
+            holder.llDetails.setVisibility(isExpanded?View.VISIBLE:View.GONE);
+
             holder.tvName.setText(list.get(position).name);
             holder.tvDescription.setText(list.get(position).description);
             holder.ivPower.setImageResource(list.get(position).image);
 
-            final TextView tv = holder.tvDescription;
+            holder.itemView.setActivated(isExpanded);
+            final Holder temp = holder;
             final MaterialCardView card = holder.card;
 
-            holder.btnExpand.setOnClickListener(new View.OnClickListener() {
+            holder.ivExpand.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(tv.getVisibility() == View.VISIBLE){
-                        tv.setVisibility(View.GONE);
-                    } else {
-                        TransitionManager.beginDelayedTransition(card);
-                        tv.setVisibility(View.VISIBLE);
-                    }
+                        int position =  temp.getAdapterPosition();
+                        mExpandedPosition = isExpanded ? -1:position;
+                        TransitionManager.beginDelayedTransition(rvCards);
+                        notifyDataSetChanged();
+
+                        //TODO animate transition
+                        temp.ivExpand.setRotation(temp.ivExpand.getRotation() + 180);
                 }
             });
 
             //Se si vogliono fare cliccabili le carte
-/*            card.setOnClickListener(new MaterialCardView.OnClickListener(){
+            /*card.setOnClickListener(new MaterialCardView.OnClickListener(){
                 @Override
                 public void onClick(View v) {
                     card.setChecked(!card.isChecked());
@@ -112,13 +121,16 @@ public class ListActivity extends AppCompatActivity {
             return list.size();
         }
 
+
+
         class Holder extends RecyclerView.ViewHolder{
 
             final TextView tvName;
             final TextView tvDescription;
             final ImageView ivPower;
-            final MaterialButton btnExpand;
+            final ImageView ivExpand;
             final MaterialCardView card;
+            final LinearLayout llDetails;
 
             public Holder(@NonNull View itemView) {
                 super(itemView);
@@ -126,12 +138,15 @@ public class ListActivity extends AppCompatActivity {
                 tvName = itemView.findViewById(R.id.tvText);
                 tvDescription = itemView.findViewById(R.id.tvDescription);
                 ivPower = itemView.findViewById(R.id.ivPower);
-                btnExpand = itemView.findViewById(R.id.btnExpand);
+                ivExpand = itemView.findViewById(R.id.ivExpand);
                 card = itemView.findViewById(R.id.cdPower);
+                llDetails = itemView.findViewById(R.id.llDetails);
 
             }
         }
     }
+
+
 
     class PowerRanger {
         public String name;

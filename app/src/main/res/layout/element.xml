@@ -32,36 +32,41 @@
                 android:scaleType="fitCenter"
                 app:srcCompat="@drawable/power" />
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
+                android:layout_height="wrap_content">
 
-                <!-- Title, secondary and supporting text -->
                 <TextView
                     android:id="@+id/tvText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
                     android:text="Power Rangers"
-                    android:textAppearance="?attr/textAppearanceHeadline6" />
+                    android:textAppearance="?attr/textAppearanceHeadline6"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            </LinearLayout>
-
-            <!-- Buttons -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:orientation="vertical">
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnExpand"
-                    style="?attr/borderlessButtonStyle"
+                <ImageView
+                    android:id="@+id/ivExpand"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
-                    android:text="Expand" />
+                    android:layout_weight="1"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvText"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tvText"
+                    app:srcCompat="@drawable/expand" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Buttons -->
+            <LinearLayout
+                android:id="@+id/llDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/tvDescription"
@@ -71,7 +76,7 @@
                     android:text="Testo Secondario"
                     android:textAppearance="?attr/textAppearanceBody2"
                     android:textColor="?android:attr/textColorSecondary"
-                    android:visibility="gone" />
+                    android:visibility="visible" />
             </LinearLayout>
 
         </LinearLayout>
