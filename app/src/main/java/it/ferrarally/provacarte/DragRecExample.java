@@ -1,10 +1,13 @@
 package it.ferrarally.provacarte;
 
+import android.graphics.Canvas;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewPropertyAnimator;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -37,6 +40,69 @@ public class DragRecExample extends AppCompatActivity {
         new Holder();
     }
 
+    class DragHelper extends ItemTouchHelper.Callback{
+
+        private boolean cardPicked = true;
+        private boolean reset = false;
+        private Holder holder;
+
+        public DragHelper(Holder holder){
+            this.holder = holder;
+        }
+
+        @Override
+        public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dx, float dy, int actionState, boolean isCurrentlyActive ){
+
+            //card taken
+            if(cardPicked){
+                MaterialCardView card = (MaterialCardView) ((ViewGroup)viewHolder.itemView).getChildAt(0) ;
+                card.setDragged(true);
+                Log.v("Dr","start drag");
+                cardPicked = false;
+            }
+
+            //card released
+            if(reset){
+                MaterialCardView card = (MaterialCardView) ((ViewGroup)viewHolder.itemView).getChildAt(0) ;
+                card.setDragged(false);
+                cardPicked = true;
+                reset = false;
+                Log.v("Dr","end drag");
+
+            }
+            super.onChildDraw(c, recyclerView, viewHolder, dx, dy, actionState, isCurrentlyActive);
+        }
+
+        @Override
+        public void clearView(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder){
+            super.clearView(recyclerView, viewHolder);
+
+            reset = true;
+        }
+
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder dragged, @NonNull RecyclerView.ViewHolder target) {
+
+            int position_dragged =dragged.getAdapterPosition();
+            int position_target = target.getAdapterPosition();
+            holder.move(position_dragged,position_target);
+
+            return false;
+        }
+
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder swiped, int direction) {
+
+        }
+
+        @Override
+        public int getMovementFlags(@NonNull RecyclerView recyclerView,RecyclerView.ViewHolder viewHolder){
+            int dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT;
+            return makeMovementFlags(dragFlags,0);
+        }
+
+    }
+
     class Holder implements View.OnClickListener{
 
         final Button btnRedpower;
@@ -46,6 +112,11 @@ public class DragRecExample extends AppCompatActivity {
         final RecyclerView rvPower;
         List<String> vec;
         final CardAdapter cd;
+
+        public void move(int position_dragged, int position_target){
+            Collections.swap(vec,position_dragged, position_target);
+            cd.notifyItemMoved(position_dragged, position_target);
+        }
 
         public Holder(){
 
@@ -61,9 +132,6 @@ public class DragRecExample extends AppCompatActivity {
 
             rvPower=findViewById(R.id.rvPower);
 
-            //RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(DragRecExample.this);
-
-            //rvPower.setLayoutManager(layoutManager);
             GridLayoutManager layout=new GridLayoutManager(DragRecExample.this, 2);
 
             rvPower.setLayoutManager(layout);
@@ -79,26 +147,8 @@ public class DragRecExample extends AppCompatActivity {
             itemDec=new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.HORIZONTAL);
             rvPower.addItemDecoration(itemDec);
 
-            ItemTouchHelper helper =new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.LEFT |ItemTouchHelper.RIGHT, ItemTouchHelper.RIGHT) {
-                @Override
-                public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder dragged, @NonNull RecyclerView.ViewHolder target) {
+            ItemTouchHelper helper = new ItemTouchHelper(new DragHelper(this));
 
-                    int position_dragged =dragged.getAdapterPosition();
-                    int position_target = target.getAdapterPosition();
-                    Collections.swap(vec,position_dragged, position_target);
-                    cd.notifyItemMoved(position_dragged, position_target);
-
-
-                    return false;
-                }
-
-                @Override
-                public void onSwiped(@NonNull RecyclerView.ViewHolder swiped, int direction) {
-                    int position = swiped.getAdapterPosition();
-                    vec.remove(position);
-                    cd.notifyItemRemoved(position);
-                }
-            });
 
             helper.attachToRecyclerView(rvPower);
 
@@ -182,15 +232,14 @@ public class DragRecExample extends AppCompatActivity {
 
            final ImageView ivPower;
            final TextView tvPower;
+           final public MaterialCardView cdPower;
 
            public Holder(@NonNull View itemView){
                super(itemView);
                ivPower=itemView.findViewById(R.id.ivPower);
                tvPower=itemView.findViewById(R.id.tvPower);
+               cdPower = itemView.findViewById(R.id.cdPower);
            }
-
-
-
 
        }
 

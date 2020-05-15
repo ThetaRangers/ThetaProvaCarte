@@ -41,11 +41,11 @@ public class MainActivity extends AppCompatActivity {
             buttonDrag.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                   // Intent intent = new Intent(MainActivity.this, DragExample.class);
+                    //Intent intent = new Intent(MainActivity.this, DragExample.class);
 
                    //Intent intent = new Intent(MainActivity.this, DragSecondExample.class);
 
-                    Intent intent = new Intent(MainActivity.this, DragRecExample.class);
+                   Intent intent = new Intent(MainActivity.this, DragRecExample.class);
 
                     startActivity(intent);
                 }
