@@ -50,7 +50,8 @@ public class ListActivity extends AppCompatActivity {
 
             list.add(new PowerRanger("Power Ranger Rosso", R.drawable.rosso, "E' un power ranger rossooooooooooooooo" +
                     "ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo"));
-            list.add(new PowerRanger("Power Ranger Verde", R.drawable.verde, "E' un power ranger verde"));
+            list.add(new PowerRanger("Power Ranger Verde", R.drawable.verde, "E' un power ranger verde" +
+                    "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"));
             list.add(new PowerRanger("Power Ranger Blu", R.drawable.blu, "E' un power ranger blu"));
             list.add(new PowerRanger("Power Ranger Giallo", R.drawable.giallo, "E' un power ranger giallo"));
 
