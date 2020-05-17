@@ -1,3 +1,5 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="margin_bottom_medium">8dp</dimen>
+    <dimen name="margin_left_medium">8dp</dimen>
 </resources>
