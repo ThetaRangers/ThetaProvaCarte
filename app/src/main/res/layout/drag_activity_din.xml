@@ -21,11 +21,9 @@
         android:id="@+id/btnYellowpower"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="15dp"
+        android:layout_marginStart="23dp"
         android:text="yellow"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnBluepower"
         app:layout_constraintStart_toEndOf="@+id/btnGreenpower" />
 
     <Button
@@ -42,7 +40,8 @@
         android:layout_height="wrap_content"
         android:text="blue"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnYellowpower" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvPower"

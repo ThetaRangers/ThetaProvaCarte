@@ -1,6 +1,7 @@
 package it.ferrarally.provacarte;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,7 +17,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 public class DragRecExample extends AppCompatActivity {
 
@@ -141,12 +142,6 @@ public class DragRecExample extends AppCompatActivity {
             cd=new CardAdapter(vec);
             rvPower.setAdapter(cd);
 
-            DividerItemDecoration itemDec=new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.VERTICAL);
-            rvPower.addItemDecoration(itemDec);
-
-            itemDec=new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.HORIZONTAL);
-            rvPower.addItemDecoration(itemDec);
-
             ItemTouchHelper helper = new ItemTouchHelper(new DragHelper(this));
 
 
@@ -205,20 +200,29 @@ public class DragRecExample extends AppCompatActivity {
             String col=colors.get(position);
             switch(col){
                 case "g":
-                    holder.ivPower.setImageResource(R.drawable.verde);
+                    //holder.ivPower.setImageResource(R.drawable.verde);
+                    holder.ivPower.setColorFilter(Color.GREEN);
                     holder.tvPower.setText(R.string.green_name);
                     break;
                 case "y":
-                    holder.ivPower.setImageResource(R.drawable.giallo);
+                    //holder.ivPower.setImageResource(R.drawable.giallo);
+                    holder.ivPower.setColorFilter(Color.YELLOW);
                     holder.tvPower.setText(R.string.yellow_name);
                     break;
                 case "r":
-                    holder.ivPower.setImageResource(R.drawable.blu);
+                    //holder.ivPower.setImageResource(R.drawable.blu);
+                    holder.ivPower.setColorFilter(Color.RED);
                     holder.tvPower.setText(R.string.red_name);
                     break;
                 case "b":
-                    holder.ivPower.setImageResource(R.drawable.blu);
-                    holder.tvPower.setText(R.string.blue_name);
+                    //holder.ivPower.setImageResource(R.drawable.blu);
+                    Random rnd = new Random();
+
+                    int red = rnd.nextInt(256);
+                    int green = rnd.nextInt(256);
+                    int blue = rnd.nextInt(256);
+                    holder.ivPower.setColorFilter(Color.argb(255, red, green, blue));
+                    holder.tvPower.setText(String.format("R: %d, G: %d, B: %d", red, green, blue));
                     break;
             }
 

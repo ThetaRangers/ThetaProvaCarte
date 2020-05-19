@@ -1,9 +1,9 @@
 <resources>
     <!--String used for powerRangers names-->
-    <string name="green_name">Green power</string>
-    <string name="red_name">Red power</string>
-    <string name="yellow_name">Yellow power</string>
-    <string name="blue_name">Blue power</string>
+    <string name="green_name">Green</string>
+    <string name="red_name">Red</string>
+    <string name="yellow_name">Yellow</string>
+    <string name="blue_name">Blue</string>
 
 
     <string name="app_name">ProvaCarte</string>
