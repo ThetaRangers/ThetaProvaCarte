@@ -7,25 +7,20 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewPropertyAnimator;
-import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.card.MaterialCardView;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -104,42 +99,33 @@ public class DragRecExample extends AppCompatActivity {
 
     }
 
-    class Holder implements View.OnClickListener{
+    class Holder implements View.OnClickListener {
 
-        final Button btnRedpower;
-        final Button btnBluepower;
-        final Button btnYellowpower;
-        final Button btnGreenpower;
+        final Button btnGenerate;
         final RecyclerView rvPower;
-        List<String> vec;
+        List<List<Integer>> vec;
         final CardAdapter cd;
 
-        public void move(int position_dragged, int position_target){
-            Collections.swap(vec,position_dragged, position_target);
+        public void move(int position_dragged, int position_target) {
+            Collections.swap(vec, position_dragged, position_target);
             cd.notifyItemMoved(position_dragged, position_target);
         }
 
-        public Holder(){
+        public Holder() {
 
-            btnBluepower=findViewById(R.id.btnBluepower);
-            btnRedpower=findViewById(R.id.btnRedpower);
-            btnYellowpower=findViewById(R.id.btnYellowpower);
-            btnGreenpower=findViewById(R.id.btnGreenpower);
+            btnGenerate = findViewById(R.id.btnGenerate);
+            btnGenerate.setOnClickListener(this);
 
-            btnBluepower.setOnClickListener(this);
-            btnRedpower.setOnClickListener(this);
-            btnYellowpower.setOnClickListener(this);
-            btnGreenpower.setOnClickListener(this);
 
-            rvPower=findViewById(R.id.rvPower);
+            rvPower = findViewById(R.id.rvPower);
 
-            GridLayoutManager layout=new GridLayoutManager(DragRecExample.this, 2);
+            GridLayoutManager layout = new GridLayoutManager(DragRecExample.this, 2);
 
             rvPower.setLayoutManager(layout);
 
-            vec=new ArrayList<>();
+            vec = new ArrayList<>();
 
-            cd=new CardAdapter(vec);
+            cd = new CardAdapter(vec);
             rvPower.setAdapter(cd);
 
             ItemTouchHelper helper = new ItemTouchHelper(new DragHelper(this));
@@ -148,41 +134,36 @@ public class DragRecExample extends AppCompatActivity {
             helper.attachToRecyclerView(rvPower);
 
 
-
         }
 
 
         @Override
-        public void onClick(View view){
-                if(view.getId()==R.id.btnRedpower){
-                   createPowerRanger("r");
-                }
-                if(view.getId()==R.id.btnBluepower){
-                    createPowerRanger("b");
-                }
-                if(view.getId()==R.id.btnYellowpower){
-                    createPowerRanger("y");
-                }
-                if(view.getId()==R.id.btnGreenpower){
-                    createPowerRanger("g");
-                }
+        public void onClick(View view) {
+            if(view.getId() == R.id.btnGenerate){
+                generateCard();
+            }
         }
 
-        private void createPowerRanger(String type){
 
-            vec.add(type);
-            cd.notifyItemInserted(vec.size()-1);
-
+        public void generateCard() {
+            Random rnd = new Random();
+            int red = rnd.nextInt(256);
+            int green = rnd.nextInt(256);
+            int blue = rnd.nextInt(256);
+            List<Integer> col = new ArrayList<>();
+            col.add(red);
+            col.add(green);
+            col.add(blue);
+            vec.add(col);
+            cd.notifyItemInserted(vec.size() - 1);
         }
-
     }
-
     private  class CardAdapter extends RecyclerView.Adapter<CardAdapter.Holder>{
 
        //change type to cards
-       private final List<String> colors;
+       private final List<List<Integer>> colors;
 
-       CardAdapter(List<String> colors){
+       CardAdapter(List<List<Integer>> colors){
            this.colors=colors;
        }
 
@@ -197,34 +178,14 @@ public class DragRecExample extends AppCompatActivity {
 
        @Override
        public void onBindViewHolder(@NonNull Holder holder, int position){
-            String col=colors.get(position);
-            switch(col){
-                case "g":
-                    //holder.ivPower.setImageResource(R.drawable.verde);
-                    holder.ivPower.setColorFilter(Color.GREEN);
-                    holder.tvPower.setText(R.string.green_name);
-                    break;
-                case "y":
-                    //holder.ivPower.setImageResource(R.drawable.giallo);
-                    holder.ivPower.setColorFilter(Color.YELLOW);
-                    holder.tvPower.setText(R.string.yellow_name);
-                    break;
-                case "r":
-                    //holder.ivPower.setImageResource(R.drawable.blu);
-                    holder.ivPower.setColorFilter(Color.RED);
-                    holder.tvPower.setText(R.string.red_name);
-                    break;
-                case "b":
-                    //holder.ivPower.setImageResource(R.drawable.blu);
-                    Random rnd = new Random();
+           List<Integer> col = this.colors.get(position);
+           int red = col.get(0);
+           int green = col.get(1);
+           int blue = col.get(2);
+           holder.ivPower.setColorFilter(Color.argb(255, red, green, blue));
+           holder.tvPower.setText(String.format("R: %d, G: %d, B: %d", red, green, blue));
 
-                    int red = rnd.nextInt(256);
-                    int green = rnd.nextInt(256);
-                    int blue = rnd.nextInt(256);
-                    holder.ivPower.setColorFilter(Color.argb(255, red, green, blue));
-                    holder.tvPower.setText(String.format("R: %d, G: %d, B: %d", red, green, blue));
-                    break;
-            }
+
 
        }
 
