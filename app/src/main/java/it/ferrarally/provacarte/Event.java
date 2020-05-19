@@ -7,19 +7,23 @@ import android.os.Parcelable;
 public class Event implements Parcelable {
     public String eventName;
     public String eventDescription;
+    public String eventLocation;
     public int imageId;
 
-    public Event(String eventName, String eventDescription, int imageId){
+    public Event(String eventName, String eventDescription, int imageId, String eventLocation){
         this.eventName = eventName;
         this.eventDescription = eventDescription;
         this.imageId = imageId;
+        this.eventLocation = eventLocation;
     }
 
     protected Event(Parcel in) {
         eventName = in.readString();
         eventDescription = in.readString();
+        eventLocation = in.readString();
         imageId = in.readInt();
     }
+
 
     public static final Creator<Event> CREATOR = new Creator<Event>() {
         @Override
@@ -42,6 +46,7 @@ public class Event implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(eventName);
         dest.writeString(eventDescription);
+        dest.writeString(eventLocation);
         dest.writeInt(imageId);
     }
 }

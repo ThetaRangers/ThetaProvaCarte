@@ -48,8 +48,8 @@ public class EventsActivity extends AppCompatActivity {
         private List<Event> getEvents(){
             List<Event> eventsList = new ArrayList<>();
 
-            eventsList.add(new Event("Evento1", "bello questo evento 1", R.drawable.power));
-            eventsList.add(new Event("Evento2", "bello questo evento 2", R.drawable.power));
+            eventsList.add(new Event("Evento1", "bello questo evento 1", R.drawable.sushisen, "Roma"));
+            eventsList.add(new Event("Evento2", "bello questo evento 2", R.drawable.osteria, "Campoli Appennino"));
 
             return eventsList;
         }
@@ -78,12 +78,13 @@ public class EventsActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(@NonNull Holder holder, int position) {
             holder.tvName.setText(eventsList.get(position).eventName);
-            holder.tvDescription.setText(eventsList.get(position).eventDescription);
+            holder.tvLocation.setText(eventsList.get(position).eventLocation);
             holder.ivPreview.setImageResource(eventsList.get(position).imageId);
 
             final int i = position;
             final ImageView iv = holder.ivPreview;
             final TextView tv = holder.tvName;
+            final TextView tv1 = holder.tvLocation;
 
             holder.card.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -95,8 +96,9 @@ public class EventsActivity extends AppCompatActivity {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         Pair<View, String> p1 = Pair.create((View)iv, "imageExpansion");
                         Pair<View, String> p2 = Pair.create((View)tv, "nameTransition");
+                        Pair<View, String> p3 = Pair.create((View)tv1, "locationTransition");
                         ActivityOptions options = ActivityOptions
-                                .makeSceneTransitionAnimation(EventsActivity.this, p1, p2);
+                                .makeSceneTransitionAnimation(EventsActivity.this, p1, p2, p3);
                         startActivity(data, options.toBundle());
                     } else {
                         startActivity(data);
@@ -112,7 +114,7 @@ public class EventsActivity extends AppCompatActivity {
 
         class Holder extends RecyclerView.ViewHolder{
             final TextView tvName;
-            final TextView tvDescription;
+            final TextView tvLocation;
             final ImageView ivPreview;
             final MaterialCardView card;
 
@@ -120,7 +122,7 @@ public class EventsActivity extends AppCompatActivity {
                 super(itemView);
 
                 tvName = itemView.findViewById(R.id.tvName);
-                tvDescription = itemView.findViewById(R.id.tvDescription);
+                tvLocation = itemView.findViewById(R.id.tvLocation);
                 ivPreview = itemView.findViewById(R.id.ivPreview);
                 card = itemView.findViewById(R.id.card);
             }

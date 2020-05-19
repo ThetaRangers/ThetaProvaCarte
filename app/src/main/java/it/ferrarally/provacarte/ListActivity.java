@@ -14,7 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -135,7 +134,7 @@ public class ListActivity extends AppCompatActivity {
                 super(itemView);
 
                 tvName = itemView.findViewById(R.id.tvName);
-                tvDescription = itemView.findViewById(R.id.tvDescription);
+                tvDescription = itemView.findViewById(R.id.tvLocation);
                 ivPower = itemView.findViewById(R.id.ivPower);
                 ivExpand = itemView.findViewById(R.id.ivExpand);
                 card = itemView.findViewById(R.id.cdPower);
