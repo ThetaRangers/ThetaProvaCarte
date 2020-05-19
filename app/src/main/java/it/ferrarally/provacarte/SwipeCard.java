@@ -13,7 +13,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.material.card.MaterialCardView;
@@ -164,7 +163,7 @@ public class SwipeCard extends AppCompatActivity {
             public Holder(@NonNull View itemView) {
                 super(itemView);
 
-                tvText = itemView.findViewById(R.id.tvText);
+                tvText = itemView.findViewById(R.id.tvName);
                 cdBackground = itemView.findViewById(R.id.cdBackground);
                 cdSwipe = itemView.findViewById(R.id.cdSwipe);
             }

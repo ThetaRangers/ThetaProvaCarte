@@ -15,9 +15,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 
 import java.util.ArrayList;
@@ -45,15 +45,15 @@ public class ListActivity extends AppCompatActivity {
             rvCards.setAdapter(mAdapter);
         }
 
-        private List<PowerRanger> createList(){
-            List<PowerRanger> list = new ArrayList<>();
+        private List<Restaurant> createList(){
+            List<Restaurant> list = new ArrayList<>();
 
-            list.add(new PowerRanger("Power Ranger Rosso", R.drawable.rosso, "E' un power ranger rossooooooooooooooo" +
-                    "ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo"));
-            list.add(new PowerRanger("Power Ranger Verde", R.drawable.verde, "E' un power ranger verde" +
-                    "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"));
-            list.add(new PowerRanger("Power Ranger Blu", R.drawable.blu, "E' un power ranger blu"));
-            list.add(new PowerRanger("Power Ranger Giallo", R.drawable.giallo, "E' un power ranger giallo"));
+            list.add(new Restaurant("Sushisen", R.drawable.sushisen, "Locale semplice ed accogliente, ispirato al classico stile zen.\n" +
+                    "Disponiamo di due sale, una tipica con tavoli (40 posti a sedere), ed una più innovativa con  \"Kaitenzushi\" (letteralmente sushi rotante), un nastro " +
+                    "che fa scorrere piattini e singole porzioni di piatti che spaziano dal sushi al roll, nonchè prelibatezze speciali o del mese.", 1123, 5, "06 12315312"));
+            list.add(new Restaurant("Osteria Francescana", R.drawable.osteria, "Uhmmm buono questo ristorante", 8, 5, "06 5342523"));
+            list.add(new Restaurant("Ristorante Puccini", R.drawable.puccini, "Yumm", 100, 2, "07 12346354"));
+            list.add(new Restaurant("Risorante Pizzeria Da Marco", R.drawable.pizzeria, "Buonissima pizzeria di marco", 1, 2.5f, "06123 4323"));
 
             return list;
         }
@@ -62,10 +62,10 @@ public class ListActivity extends AppCompatActivity {
 
 
     class CardAdapter extends RecyclerView.Adapter<CardAdapter.Holder>{
-        private List<PowerRanger> list;
+        private List<Restaurant> list;
         private int mExpandedPosition = -1;
 
-        CardAdapter(List<PowerRanger> list){
+        CardAdapter(List<Restaurant> list){
             this.list = list;
         }
 
@@ -84,17 +84,21 @@ public class ListActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(@NonNull Holder holder, int position) {
             final boolean isExpanded = position==mExpandedPosition;
-            holder.llDetails.setVisibility(isExpanded?View.VISIBLE:View.GONE);
+            holder.clDetails.setVisibility(isExpanded?View.VISIBLE:View.GONE);
 
+            holder.tvNumber.setText(list.get(position).telephone);
             holder.tvName.setText(list.get(position).name);
             holder.tvDescription.setText(list.get(position).description);
             holder.ivPower.setImageResource(list.get(position).image);
+
+            holder.tvRatingNumbers.setText(list.get(position).ratingNumbers + "");
+            holder.rbReview.setRating(list.get(position).numberOfStars);
 
             holder.itemView.setActivated(isExpanded);
             final Holder temp = holder;
             final MaterialCardView card = holder.card;
 
-            holder.ivExpand.setOnClickListener(new View.OnClickListener() {
+            holder.card.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                         int position =  temp.getAdapterPosition();
@@ -106,15 +110,6 @@ public class ListActivity extends AppCompatActivity {
                         temp.ivExpand.setRotation(temp.ivExpand.getRotation() + 180);
                 }
             });
-
-            //Se si vogliono fare cliccabili le carte
-            /*card.setOnClickListener(new MaterialCardView.OnClickListener(){
-                @Override
-                public void onClick(View v) {
-                    card.setChecked(!card.isChecked());
-                }
-            });*/
-
         }
 
         @Override
@@ -131,33 +126,44 @@ public class ListActivity extends AppCompatActivity {
             final ImageView ivPower;
             final ImageView ivExpand;
             final MaterialCardView card;
-            final LinearLayout llDetails;
+            final ConstraintLayout clDetails;
+            final RatingBar rbReview;
+            final TextView tvRatingNumbers;
+            final TextView tvNumber;
 
             public Holder(@NonNull View itemView) {
                 super(itemView);
 
-                tvName = itemView.findViewById(R.id.tvText);
+                tvName = itemView.findViewById(R.id.tvName);
                 tvDescription = itemView.findViewById(R.id.tvDescription);
                 ivPower = itemView.findViewById(R.id.ivPower);
                 ivExpand = itemView.findViewById(R.id.ivExpand);
                 card = itemView.findViewById(R.id.cdPower);
-                llDetails = itemView.findViewById(R.id.llDetails);
-
+                rbReview = itemView.findViewById(R.id.rbReview);
+                tvRatingNumbers = itemView.findViewById(R.id.tvRatingNumbers);
+                clDetails = itemView.findViewById(R.id.clDetails);
+                tvNumber = itemView.findViewById(R.id.tvNumber);
             }
         }
     }
 
 
 
-    class PowerRanger {
+    class Restaurant {
         public String name;
         public int image;
         public String description;
+        public int ratingNumbers;
+        public float numberOfStars;
+        public String telephone;
 
-        PowerRanger(String name, int image, String description){
+        Restaurant(String name, int image, String description, int ratingNumbers, float numberOfStars, String telephone){
             this.name = name;
             this.image = image;
             this.description = description;
+            this.numberOfStars = numberOfStars;
+            this.ratingNumbers = ratingNumbers;
+            this.telephone = telephone;
         }
     }
 }

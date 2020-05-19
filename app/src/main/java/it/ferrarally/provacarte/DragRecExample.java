@@ -213,7 +213,7 @@ public class DragRecExample extends AppCompatActivity {
                     holder.tvPower.setText(R.string.yellow_name);
                     break;
                 case "r":
-                    holder.ivPower.setImageResource(R.drawable.rosso);
+                    holder.ivPower.setImageResource(R.drawable.blu);
                     holder.tvPower.setText(R.string.red_name);
                     break;
                 case "b":

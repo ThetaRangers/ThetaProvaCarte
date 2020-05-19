@@ -119,7 +119,7 @@ public class EventsActivity extends AppCompatActivity {
             public Holder(@NonNull View itemView) {
                 super(itemView);
 
-                tvName = itemView.findViewById(R.id.tvText);
+                tvName = itemView.findViewById(R.id.tvName);
                 tvDescription = itemView.findViewById(R.id.tvDescription);
                 ivPreview = itemView.findViewById(R.id.ivPreview);
                 card = itemView.findViewById(R.id.card);
