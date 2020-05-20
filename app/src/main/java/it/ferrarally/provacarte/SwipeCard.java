@@ -9,11 +9,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.graphics.Canvas;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.card.MaterialCardView;
 
@@ -38,11 +39,11 @@ public class SwipeCard extends AppCompatActivity {
             rvSwipe.setLayoutManager(new LinearLayoutManager(SwipeCard.this));
             rvSwipe.setHasFixedSize(true);
 
-            List<String> strings = new ArrayList<>();
-            strings.add("Bello Questo Paesaggio zio");
-            strings.add("gamberone");
+            final List<City> cities = new ArrayList<>();
+            cities.add(new City("Patrica", R.drawable.patrica));
+            cities.add(new City("Campoli Appennino", R.drawable.campoli));
 
-            final Adapter adapter = new Adapter(strings);
+            final Adapter adapter = new Adapter(cities);
             rvSwipe.setAdapter(adapter);
 
             ItemTouchHelper itemTouchHelper;
@@ -56,7 +57,17 @@ public class SwipeCard extends AppCompatActivity {
                 @Override
                 public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                     if (direction == ItemTouchHelper.RIGHT) {
-                        Log.w("THETA", "Hey Gamberone");
+                        int position = viewHolder.getAdapterPosition();
+                        City city = cities.get(position);
+
+                        if(city.favorite){
+                            Toast.makeText(SwipeCard.this, String.format("%s removed from favorites", city.name), Toast.LENGTH_SHORT).show();
+                            cities.get(position).favorite = false;
+                        } else {
+                            Toast.makeText(SwipeCard.this, String.format("%s added to favorites", city.name), Toast.LENGTH_SHORT).show();
+                            cities.get(position).favorite = true;
+                        }
+
                     }
 
                     //Makes the item reappear after swipe
@@ -66,7 +77,7 @@ public class SwipeCard extends AppCompatActivity {
                 @Override
                 public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
                     if (viewHolder != null){
-                        final View foregroundView = ((Adapter.Holder) viewHolder).cdSwipe;
+                        final View foregroundView = ((Adapter.CityHolder) viewHolder).cdSwipe;
 
                         getDefaultUIUtil().onSelected(foregroundView);
                     }
@@ -76,7 +87,7 @@ public class SwipeCard extends AppCompatActivity {
                 public void onChildDraw(Canvas c, RecyclerView recyclerView,
                                         RecyclerView.ViewHolder viewHolder, float dX, float dY,
                                         int actionState, boolean isCurrentlyActive) {
-                    final View foregroundView = ((Adapter.Holder) viewHolder).cdSwipe;
+                    final View foregroundView = ((Adapter.CityHolder) viewHolder).cdSwipe;
 
                     drawBackground(viewHolder, dX, actionState);
 
@@ -88,7 +99,7 @@ public class SwipeCard extends AppCompatActivity {
                 public void onChildDrawOver(Canvas c, RecyclerView recyclerView,
                                             RecyclerView.ViewHolder viewHolder, float dX, float dY,
                                             int actionState, boolean isCurrentlyActive) {
-                    final View foregroundView = ((Adapter.Holder) viewHolder).cdSwipe;
+                    final View foregroundView = ((Adapter.CityHolder) viewHolder).cdSwipe;
 
                     drawBackground(viewHolder, dX, actionState);
 
@@ -98,8 +109,8 @@ public class SwipeCard extends AppCompatActivity {
 
                 @Override
                 public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder){
-                    final View backgroundView = ((Adapter.Holder) viewHolder).cdBackground;
-                    final View foregroundView = ((Adapter.Holder) viewHolder).cdSwipe;
+                    final View backgroundView = ((Adapter.CityHolder) viewHolder).cdBackground;
+                    final View foregroundView = ((Adapter.CityHolder) viewHolder).cdSwipe;
 
                     // TODO: should animate out instead. how?
                     backgroundView.setRight(0);
@@ -109,7 +120,7 @@ public class SwipeCard extends AppCompatActivity {
                 }
 
                 private void drawBackground(RecyclerView.ViewHolder viewHolder, float dX, int actionState) {
-                    final View backgroundView = ((Adapter.Holder) viewHolder).cdBackground;
+                    final View backgroundView = ((Adapter.CityHolder) viewHolder).cdBackground;
 
                     if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
                         backgroundView.setRight((int) Math.max(dX, 0));
@@ -127,10 +138,10 @@ public class SwipeCard extends AppCompatActivity {
     }
 
     class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
-        private List<String> stringList;
+        private List<City> cityList;
 
-        Adapter(List<String> stringList){
-            this.stringList = stringList;
+        Adapter(List<City> cities){
+            this.cityList = cities;
         }
 
         @NonNull
@@ -142,31 +153,53 @@ public class SwipeCard extends AppCompatActivity {
                     .from(parent.getContext())
                     .inflate(R.layout.swipe_card, parent, false);
 
-            return new Holder(cl);
+            return new CityHolder(cl);
         }
 
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-            ((Holder) holder).tvText.setText(stringList.get(position));
+            ((CityHolder) holder).tvText.setText(cityList.get(position).name);
+            ((CityHolder) holder).ivCity.setImageResource(cityList.get(position).imageId);
+
+            if(cityList.get(position).favorite){
+                ((CityHolder) holder).ivFavorite.setVisibility(View.VISIBLE);
+            } else {
+                ((CityHolder) holder).ivFavorite.setVisibility(View.GONE);
+            }
         }
 
         @Override
         public int getItemCount() {
-            return stringList.size();
+            return cityList.size();
         }
 
-        class Holder extends RecyclerView.ViewHolder{
+        class CityHolder extends RecyclerView.ViewHolder{
             public final MaterialCardView cdBackground;
             public final MaterialCardView cdSwipe;
+            public ImageView ivFavorite;
+            public final ImageView ivCity;
             final TextView tvText;
 
-            public Holder(@NonNull View itemView) {
+            public CityHolder(@NonNull View itemView) {
                 super(itemView);
 
                 tvText = itemView.findViewById(R.id.tvName);
+                ivFavorite = itemView.findViewById(R.id.ivFavorite);
+                ivCity = itemView.findViewById(R.id.ivCity);
                 cdBackground = itemView.findViewById(R.id.cdBackground);
                 cdSwipe = itemView.findViewById(R.id.cdSwipe);
             }
+        }
+    }
+
+    class City {
+        public String name;
+        public boolean favorite = false;
+        public int imageId;
+
+        public City(String name, int imageId) {
+            this.name = name;
+            this.imageId = imageId;
         }
     }
 }
