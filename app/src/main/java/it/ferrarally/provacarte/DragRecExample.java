@@ -183,7 +183,7 @@ public class DragRecExample extends AppCompatActivity {
            int green = col.get(1);
            int blue = col.get(2);
            holder.ivPower.setColorFilter(Color.argb(255, red, green, blue));
-           holder.tvPower.setText(String.format("R: %d, G: %d, B: %d", red, green, blue));
+           holder.tvPower.setText( String.format("#%02x%02x%02x", red, green, blue).toUpperCase());
 
 
 
