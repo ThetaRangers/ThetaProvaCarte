@@ -52,7 +52,7 @@ public class ListActivity extends AppCompatActivity {
                     "che fa scorrere piattini e singole porzioni di piatti che spaziano dal sushi al roll, nonchè prelibatezze speciali o del mese.", 1123, 5, "06 12315312"));
             list.add(new Restaurant("Osteria Francescana", R.drawable.osteria, "Uhmmm buono questo ristorante", 8, 5, "06 5342523"));
             list.add(new Restaurant("Ristorante Puccini", R.drawable.puccini, "Yumm", 100, 2, "07 12346354"));
-            list.add(new Restaurant("Risorante Pizzeria Da Marco", R.drawable.pizzeria, "Buonissima pizzeria di marco", 1, 2.5f, "06123 4323"));
+            list.add(new Restaurant("Risorante Pizzeria Da Marco", R.drawable.pizzeria, "Buonissima pizzeria di Marco", 1, 2.5f, "06123 4323"));
 
             return list;
         }
@@ -82,7 +82,7 @@ public class ListActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(@NonNull Holder holder, int position) {
-            final boolean isExpanded = position==mExpandedPosition;
+            final boolean isExpanded = position == mExpandedPosition;
             holder.clDetails.setVisibility(isExpanded?View.VISIBLE:View.GONE);
 
             holder.tvNumber.setText(list.get(position).telephone);
@@ -94,24 +94,13 @@ public class ListActivity extends AppCompatActivity {
             holder.rbReview.setRating(list.get(position).numberOfStars);
 
             holder.itemView.setActivated(isExpanded);
-            final Holder temp = holder;
-            final MaterialCardView card = holder.card;
 
-            holder.card.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                        int position =  temp.getAdapterPosition();
-                        mExpandedPosition = isExpanded ? -1:position;
-                        TransitionManager.beginDelayedTransition(rvCards);
-                        notifyDataSetChanged();
+            if(isExpanded){
+                holder.ivExpand.setRotation(180);
+            } else {
+                holder.ivExpand.setRotation(0);
+            }
 
-                        if(isExpanded){
-                            temp.ivExpand.setRotation(0);
-                        } else {
-                            temp.ivExpand.setRotation(180);
-                        }
-                }
-            });
         }
 
         @Override
@@ -121,7 +110,7 @@ public class ListActivity extends AppCompatActivity {
 
 
 
-        class Holder extends RecyclerView.ViewHolder{
+        class Holder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
             final TextView tvName;
             final TextView tvDescription;
@@ -145,7 +134,20 @@ public class ListActivity extends AppCompatActivity {
                 tvRatingNumbers = itemView.findViewById(R.id.tvRatingNumbers);
                 clDetails = itemView.findViewById(R.id.clDetails);
                 tvNumber = itemView.findViewById(R.id.tvNumber);
+
+                card.setOnClickListener(this);
             }
+
+            @Override
+            public void onClick(View v) {
+                int position =  getAdapterPosition();
+                boolean isExpanded = position == mExpandedPosition;
+                mExpandedPosition = isExpanded ? -1 : position;
+                TransitionManager.beginDelayedTransition(rvCards);
+                notifyDataSetChanged();
+
+            }
+
         }
     }
 
