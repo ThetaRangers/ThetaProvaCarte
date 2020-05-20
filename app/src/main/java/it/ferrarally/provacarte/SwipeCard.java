@@ -42,6 +42,7 @@ public class SwipeCard extends AppCompatActivity {
             final List<City> cities = new ArrayList<>();
             cities.add(new City("Patrica", R.drawable.patrica));
             cities.add(new City("Campoli Appennino", R.drawable.campoli));
+            cities.add(new City("Vetralla", R.drawable.vetralla));
 
             final Adapter adapter = new Adapter(cities);
             rvSwipe.setAdapter(adapter);
