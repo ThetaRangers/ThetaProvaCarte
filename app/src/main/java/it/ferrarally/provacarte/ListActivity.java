@@ -72,7 +72,7 @@ public class ListActivity extends AppCompatActivity {
         @Override
         public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             ConstraintLayout cl;
-            //Inflate row of recycle view
+            //Inflate row of RecyclerView
             cl = (ConstraintLayout) LayoutInflater
                     .from(parent.getContext())
                     .inflate(R.layout.item_restaurant, parent, false);
@@ -105,8 +105,11 @@ public class ListActivity extends AppCompatActivity {
                         TransitionManager.beginDelayedTransition(rvCards);
                         notifyDataSetChanged();
 
-                        //TODO animate transition
-                        temp.ivExpand.setRotation(temp.ivExpand.getRotation() + 180);
+                        if(isExpanded){
+                            temp.ivExpand.setRotation(0);
+                        } else {
+                            temp.ivExpand.setRotation(180);
+                        }
                 }
             });
         }
@@ -145,8 +148,6 @@ public class ListActivity extends AppCompatActivity {
             }
         }
     }
-
-
 
     class Restaurant {
         public String name;
