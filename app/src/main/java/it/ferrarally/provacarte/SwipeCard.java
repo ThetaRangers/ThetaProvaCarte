@@ -151,7 +151,7 @@ public class SwipeCard extends AppCompatActivity {
             //Inflate row of recycle view
             cl = (ConstraintLayout) LayoutInflater
                     .from(parent.getContext())
-                    .inflate(R.layout.swipe_card, parent, false);
+                    .inflate(R.layout.item_swipe_card, parent, false);
 
             return new CityHolder(cl);
         }

@@ -75,7 +75,7 @@ public class ListActivity extends AppCompatActivity {
             //Inflate row of recycle view
             cl = (ConstraintLayout) LayoutInflater
                     .from(parent.getContext())
-                    .inflate(R.layout.element, parent, false);
+                    .inflate(R.layout.item_restaurant, parent, false);
 
             return new Holder(cl);
         }

@@ -70,7 +70,7 @@ public class EventsActivity extends AppCompatActivity {
             //Inflate row of recycle view
             cl = (ConstraintLayout) LayoutInflater
                     .from(parent.getContext())
-                    .inflate(R.layout.event, parent, false);
+                    .inflate(R.layout.item_event, parent, false);
 
             return new Holder(cl);
         }
@@ -89,7 +89,7 @@ public class EventsActivity extends AppCompatActivity {
             holder.card.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent data = new Intent(EventsActivity.this, EventDetail.class);
+                    Intent data = new Intent(EventsActivity.this, EventDetailActivity.class);
                     data.putExtra("Event", eventsList.get(i));
 
 

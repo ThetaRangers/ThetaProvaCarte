@@ -25,13 +25,13 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-public class DragRecExample extends AppCompatActivity {
+public class DragActivity extends AppCompatActivity {
 
     @Override
     public void onCreate(Bundle savedInstance ){
 
         super.onCreate(savedInstance);
-        setContentView(R.layout.drag_activity_din);
+        setContentView(R.layout.activity_drag);
 
         new Holder();
     }
@@ -119,7 +119,7 @@ public class DragRecExample extends AppCompatActivity {
 
             rvPower = findViewById(R.id.rvPower);
 
-            GridLayoutManager layout = new GridLayoutManager(DragRecExample.this, 2);
+            GridLayoutManager layout = new GridLayoutManager(DragActivity.this, 2);
 
             rvPower.setLayoutManager(layout);
 
@@ -171,7 +171,7 @@ public class DragRecExample extends AppCompatActivity {
        @Override
        public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
            ConstraintLayout cl;
-           cl= (ConstraintLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.power_ranger, parent, false);
+           cl= (ConstraintLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.item_color, parent, false);
            Holder ret=new Holder(cl);
            return ret;
        }

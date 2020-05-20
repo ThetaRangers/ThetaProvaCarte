@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
                    //Intent intent = new Intent(MainActivity.this, DragSecondExample.class);
 
-                   Intent intent = new Intent(MainActivity.this, DragRecExample.class);
+                   Intent intent = new Intent(MainActivity.this, DragActivity.class);
 
                     startActivity(intent);
                 }
