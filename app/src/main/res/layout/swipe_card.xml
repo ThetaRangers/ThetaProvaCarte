@@ -9,7 +9,6 @@
         android:id="@+id/cdBackground"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_margin="8dp"
         android:backgroundTint="#4CAF50"
         android:elevation="20dp"
         app:layout_constraintBottom_toBottomOf="@+id/cdSwipe"
@@ -29,7 +28,7 @@
                 android:layout_marginTop="16dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/redhearh" />
+                app:srcCompat="@drawable/ic_hearth" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
