@@ -59,6 +59,8 @@ public class SwipeCard extends AppCompatActivity {
                 public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                     //Method called when the ViewHolder is being swiped
 
+                    List<City> cities = adapter.getList();
+
                     //Different actions with different swipe directions
                     if (direction == ItemTouchHelper.RIGHT) {
                         int position = viewHolder.getAdapterPosition();
@@ -71,10 +73,10 @@ public class SwipeCard extends AppCompatActivity {
                             Toast.makeText(SwipeCard.this, String.format("%s added to favorites", city.name), Toast.LENGTH_SHORT).show();
                             cities.get(position).favorite = true;
                         }
-                    }
 
-                    //Makes the item reappear after swipe
-                    adapter.notifyItemChanged(viewHolder.getAdapterPosition());
+                        //Makes the item reappear after swipe
+                        adapter.notifyItemChanged(viewHolder.getAdapterPosition());
+                    }
                 }
 
 
@@ -150,6 +152,10 @@ public class SwipeCard extends AppCompatActivity {
 
         Adapter(List<City> cities){
             this.cityList = cities;
+        }
+
+        public List<City> getList(){
+            return this.cityList;
         }
 
         @NonNull

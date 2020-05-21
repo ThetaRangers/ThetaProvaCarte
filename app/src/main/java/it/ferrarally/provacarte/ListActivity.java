@@ -93,7 +93,7 @@ public class ListActivity extends AppCompatActivity {
             holder.tvRatingNumbers.setText(list.get(position).ratingNumbers + "");
             holder.rbReview.setRating(list.get(position).numberOfStars);
 
-            holder.itemView.setActivated(isExpanded);
+            //holder.itemView.setActivated(isExpanded);
 
             if(isExpanded){
                 holder.ivExpand.setRotation(180);
