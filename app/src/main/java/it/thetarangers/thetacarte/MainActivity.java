@@ -1,4 +1,4 @@
-package it.thetarangers.provacarte;
+package it.thetarangers.thetacarte;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;

@@ -1,4 +1,4 @@
-package it.thetarangers.provacarte;
+package it.thetarangers.thetacarte;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;

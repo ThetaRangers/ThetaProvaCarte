@@ -1,4 +1,4 @@
-package it.thetarangers.provacarte;
+package it.thetarangers.thetacarte;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
