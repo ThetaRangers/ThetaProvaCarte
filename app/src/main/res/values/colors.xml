@@ -23,4 +23,6 @@
     <!--color on surface (light)-->
     <color name="black_900">#000000</color>
 
+    <color name="colorSwipeBackground">#4CAF50</color>
+
 </resources>
