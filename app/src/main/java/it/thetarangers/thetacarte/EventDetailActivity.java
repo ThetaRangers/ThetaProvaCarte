@@ -25,7 +25,7 @@ public class EventDetailActivity extends AppCompatActivity {
         final TextView tvLocation;
         final TextView tvDescription;
 
-        Holder(Event event){
+        Holder(Event event) {
             ivEvent = findViewById(R.id.ivEvent);
             tvName = findViewById(R.id.tvName);
             tvLocation = findViewById(R.id.tvLocation);

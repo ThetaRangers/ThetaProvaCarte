@@ -28,7 +28,7 @@ import java.util.Random;
 public class DragActivity extends AppCompatActivity {
 
     @Override
-    public void onCreate(Bundle savedInstance ){
+    public void onCreate(Bundle savedInstance) {
 
         super.onCreate(savedInstance);
         setContentView(R.layout.activity_drag);
@@ -36,30 +36,34 @@ public class DragActivity extends AppCompatActivity {
         new Holder();
     }
 
-    class DragHelper extends ItemTouchHelper.Callback{
+    class DragHelper extends ItemTouchHelper.Callback {
 
         private boolean cardPicked = true;
         private boolean reset = false;
         private Holder holder;
 
-        public DragHelper(Holder holder){
+        DragHelper(Holder holder) {
             this.holder = holder;
         }
 
         @Override
-        public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dx, float dy, int actionState, boolean isCurrentlyActive ){
+        public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView,
+                                @NonNull RecyclerView.ViewHolder viewHolder, float dx, float dy,
+                                int actionState, boolean isCurrentlyActive ) {
 
             //card taken
-            if(cardPicked){
-                MaterialCardView card = (MaterialCardView) ((ViewGroup)viewHolder.itemView).getChildAt(0) ;
+            if (cardPicked) {
+                MaterialCardView card = (MaterialCardView)
+                        ((ViewGroup)viewHolder.itemView).getChildAt(0) ;
                 card.setDragged(true);
                 Log.v("Dr","start drag");
                 cardPicked = false;
             }
 
             //card released
-            if(reset){
-                MaterialCardView card = (MaterialCardView) ((ViewGroup)viewHolder.itemView).getChildAt(0) ;
+            if (reset) {
+                MaterialCardView card = (MaterialCardView)
+                        ((ViewGroup)viewHolder.itemView).getChildAt(0) ;
                 card.setDragged(false);
                 cardPicked = true;
                 reset = false;
@@ -70,14 +74,17 @@ public class DragActivity extends AppCompatActivity {
         }
 
         @Override
-        public void clearView(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder){
+        public void clearView(@NonNull RecyclerView recyclerView,
+                              @NonNull RecyclerView.ViewHolder viewHolder) {
             super.clearView(recyclerView, viewHolder);
 
             reset = true;
         }
 
         @Override
-        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder dragged, @NonNull RecyclerView.ViewHolder target) {
+        public boolean onMove(@NonNull RecyclerView recyclerView,
+                              @NonNull RecyclerView.ViewHolder dragged,
+                              @NonNull RecyclerView.ViewHolder target) {
 
             int position_dragged =dragged.getAdapterPosition();
             int position_target = target.getAdapterPosition();
@@ -92,8 +99,10 @@ public class DragActivity extends AppCompatActivity {
         }
 
         @Override
-        public int getMovementFlags(@NonNull RecyclerView recyclerView,RecyclerView.ViewHolder viewHolder){
-            int dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT;
+        public int getMovementFlags(@NonNull RecyclerView recyclerView,
+                                    @NonNull RecyclerView.ViewHolder viewHolder){
+            int dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN |
+                    ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT;
             return makeMovementFlags(dragFlags,0);
         }
 
@@ -106,16 +115,15 @@ public class DragActivity extends AppCompatActivity {
         List<List<Integer>> vec;
         final CardAdapter cd;
 
-        public void move(int position_dragged, int position_target) {
+        void move(int position_dragged, int position_target) {
             Collections.swap(vec, position_dragged, position_target);
             cd.notifyItemMoved(position_dragged, position_target);
         }
 
-        public Holder() {
+        Holder() {
 
             btnGenerate = findViewById(R.id.btnGenerate);
             btnGenerate.setOnClickListener(this);
-
 
             rvPower = findViewById(R.id.rvPower);
 
@@ -130,22 +138,20 @@ public class DragActivity extends AppCompatActivity {
 
             ItemTouchHelper helper = new ItemTouchHelper(new DragHelper(this));
 
-
             helper.attachToRecyclerView(rvPower);
-
 
         }
 
 
         @Override
         public void onClick(View view) {
-            if(view.getId() == R.id.btnGenerate){
+            if(view.getId() == R.id.btnGenerate) {
                 generateCard();
             }
         }
 
 
-        public void generateCard() {
+        void generateCard() {
             Random rnd = new Random();
             int red = rnd.nextInt(256);
             int green = rnd.nextInt(256);
@@ -158,26 +164,27 @@ public class DragActivity extends AppCompatActivity {
             cd.notifyItemInserted(vec.size() - 1);
         }
     }
-    private  class CardAdapter extends RecyclerView.Adapter<CardAdapter.Holder>{
+
+    private static class CardAdapter extends RecyclerView.Adapter<CardAdapter.Holder> {
 
        //change type to cards
        private final List<List<Integer>> colors;
 
-       CardAdapter(List<List<Integer>> colors){
-           this.colors=colors;
+       CardAdapter(List<List<Integer>> colors) {
+           this.colors = colors;
        }
 
        @NonNull
        @Override
-       public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
+       public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
            ConstraintLayout cl;
-           cl= (ConstraintLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.item_color, parent, false);
-           Holder ret=new Holder(cl);
-           return ret;
+           cl= (ConstraintLayout) LayoutInflater.from(parent.getContext())
+                   .inflate(R.layout.item_color, parent, false);
+           return new Holder(cl);
        }
 
        @Override
-       public void onBindViewHolder(@NonNull Holder holder, int position){
+       public void onBindViewHolder(@NonNull Holder holder, int position) {
            List<Integer> col = this.colors.get(position);
            int red = col.get(0);
            int green = col.get(1);
@@ -185,30 +192,27 @@ public class DragActivity extends AppCompatActivity {
            holder.ivPower.setColorFilter(Color.argb(255, red, green, blue));
            holder.tvPower.setText( String.format("#%02x%02x%02x", red, green, blue).toUpperCase());
 
-
-
        }
 
        @Override
-       public int getItemCount(){return colors.size();}
+       public int getItemCount() {return colors.size();}
 
 
-       class Holder extends RecyclerView.ViewHolder{
+       static class Holder extends RecyclerView.ViewHolder {
 
            final ImageView ivPower;
            final TextView tvPower;
-           final public MaterialCardView cdPower;
+           final MaterialCardView cdPower;
 
-           public Holder(@NonNull View itemView){
+           Holder(@NonNull View itemView) {
                super(itemView);
-               ivPower=itemView.findViewById(R.id.ivPower);
-               tvPower=itemView.findViewById(R.id.tvPower);
+               ivPower = itemView.findViewById(R.id.ivPower);
+               tvPower = itemView.findViewById(R.id.tvPower);
                cdPower = itemView.findViewById(R.id.cdPower);
            }
 
        }
 
     }
-
 
 }

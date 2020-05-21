@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
                 == Configuration.UI_MODE_NIGHT_YES;
     }
 
-    class Holder implements View.OnClickListener{
+    class Holder implements View.OnClickListener {
         Holder() {
 
             final Button buttonList = findViewById(R.id.btnList);
@@ -46,23 +46,23 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
-            if(v.getId() == R.id.btnList){
+            if(v.getId() == R.id.btnList) {
                 Intent intent = new Intent(MainActivity.this, ListActivity.class);
 
                 startActivity(intent);
-            } else if(v.getId() == R.id.btnEvents){
+            } else if(v.getId() == R.id.btnEvents) {
                 Intent intent = new Intent(MainActivity.this, EventsActivity.class);
 
                 startActivity(intent);
-            } else if(v.getId() == R.id.btnDrag){
+            } else if(v.getId() == R.id.btnDrag) {
                 Intent intent = new Intent(MainActivity.this, DragActivity.class);
 
                 startActivity(intent);
-            } else if(v.getId() == R.id.btnSwipe){
+            } else if(v.getId() == R.id.btnSwipe) {
                 Intent intent = new Intent(MainActivity.this, SwipeCard.class);
 
                 startActivity(intent);
-            } else if(v.getId() == R.id.btnTheme){
+            } else if(v.getId() == R.id.btnTheme) {
                 if (isNightMode()) {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                 } else {

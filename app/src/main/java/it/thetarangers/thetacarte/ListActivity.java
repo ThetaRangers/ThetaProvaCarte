@@ -34,7 +34,7 @@ public class ListActivity extends AppCompatActivity {
     }
 
     class Holder {
-        Holder(){
+        Holder() {
             rvCards = findViewById(R.id.rvCards);
 
             RecyclerView.LayoutManager layoutManager = new GridLayoutManager(ListActivity.this, 1);
@@ -44,7 +44,7 @@ public class ListActivity extends AppCompatActivity {
             rvCards.setAdapter(mAdapter);
         }
 
-        private List<Restaurant> createList(){
+        private List<Restaurant> createList() {
             List<Restaurant> list = new ArrayList<>();
 
             list.add(new Restaurant("Sushisen", R.drawable.sushisen, "Locale semplice ed accogliente, ispirato al classico stile zen.\n" +
@@ -60,11 +60,11 @@ public class ListActivity extends AppCompatActivity {
     }
 
 
-    class CardAdapter extends RecyclerView.Adapter<CardAdapter.Holder>{
+    class CardAdapter extends RecyclerView.Adapter<CardAdapter.Holder> {
         private List<Restaurant> list;
         private int mExpandedPosition = -1;
 
-        CardAdapter(List<Restaurant> list){
+        CardAdapter(List<Restaurant> list) {
             this.list = list;
         }
 
@@ -83,19 +83,17 @@ public class ListActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(@NonNull Holder holder, int position) {
             final boolean isExpanded = position == mExpandedPosition;
-            holder.clDetails.setVisibility(isExpanded?View.VISIBLE:View.GONE);
+            holder.clDetails.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
 
             holder.tvNumber.setText(list.get(position).telephone);
             holder.tvName.setText(list.get(position).name);
             holder.tvDescription.setText(list.get(position).description);
             holder.ivPower.setImageResource(list.get(position).image);
 
-            holder.tvRatingNumbers.setText(list.get(position).ratingNumbers + "");
+            holder.tvRatingNumbers.setText(String.valueOf(list.get(position).ratingNumbers));
             holder.rbReview.setRating(list.get(position).numberOfStars);
 
-            //holder.itemView.setActivated(isExpanded);
-
-            if(isExpanded){
+            if (isExpanded) {
                 holder.ivExpand.setRotation(180);
             } else {
                 holder.ivExpand.setRotation(0);
@@ -122,7 +120,7 @@ public class ListActivity extends AppCompatActivity {
             final TextView tvRatingNumbers;
             final TextView tvNumber;
 
-            public Holder(@NonNull View itemView) {
+            Holder(@NonNull View itemView) {
                 super(itemView);
 
                 tvName = itemView.findViewById(R.id.tvName);
@@ -151,15 +149,16 @@ public class ListActivity extends AppCompatActivity {
         }
     }
 
-    class Restaurant {
-        public String name;
-        public int image;
-        public String description;
-        public int ratingNumbers;
-        public float numberOfStars;
-        public String telephone;
+    static class Restaurant {
+        String name;
+        int image;
+        String description;
+        int ratingNumbers;
+        float numberOfStars;
+        String telephone;
 
-        Restaurant(String name, int image, String description, int ratingNumbers, float numberOfStars, String telephone){
+        Restaurant(String name, int image, String description, int ratingNumbers,
+                   float numberOfStars, String telephone) {
             this.name = name;
             this.image = image;
             this.description = description;

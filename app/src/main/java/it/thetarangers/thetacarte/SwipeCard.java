@@ -34,7 +34,7 @@ public class SwipeCard extends AppCompatActivity {
     class Holder {
         final RecyclerView rvSwipe;
 
-        Holder(){
+        Holder() {
             rvSwipe = findViewById(R.id.rvSwipe);
             rvSwipe.setLayoutManager(new LinearLayoutManager(SwipeCard.this));
             rvSwipe.setHasFixedSize(true);
@@ -49,9 +49,12 @@ public class SwipeCard extends AppCompatActivity {
 
             ItemTouchHelper itemTouchHelper;
 
-            ItemTouchHelper.SimpleCallback callback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+            ItemTouchHelper.SimpleCallback callback = new ItemTouchHelper
+                    .SimpleCallback(0, ItemTouchHelper.RIGHT) {
                 @Override
-                public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                public boolean onMove(@NonNull RecyclerView recyclerView,
+                                      @NonNull RecyclerView.ViewHolder viewHolder,
+                                      @NonNull RecyclerView.ViewHolder target) {
                     return false;
                 }
 
@@ -66,11 +69,15 @@ public class SwipeCard extends AppCompatActivity {
                         int position = viewHolder.getAdapterPosition();
                         City city = cities.get(position);
 
-                        if(city.favorite){
-                            Toast.makeText(SwipeCard.this, String.format("%s removed from favorites", city.name), Toast.LENGTH_SHORT).show();
+                        if (city.favorite) {
+                            Toast.makeText(SwipeCard.this,
+                                    String.format("%s removed from favorites", city.name),
+                                    Toast.LENGTH_SHORT).show();
                             cities.get(position).favorite = false;
                         } else {
-                            Toast.makeText(SwipeCard.this, String.format("%s added to favorites", city.name), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SwipeCard.this,
+                                    String.format("%s added to favorites", city.name),
+                                    Toast.LENGTH_SHORT).show();
                             cities.get(position).favorite = true;
                         }
 
@@ -83,7 +90,7 @@ public class SwipeCard extends AppCompatActivity {
                 @Override
                 public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
                     //Method called when the ViewHolder swiped or dragged by the ItemTouchHelper is changed
-                    if (viewHolder != null){
+                    if (viewHolder != null) {
                         final View foregroundView = ((Adapter.CityHolder) viewHolder).cdSwipe;
 
                         //This method returns the itemTouchUiUtil of the itemTouchHelper
@@ -120,8 +127,10 @@ public class SwipeCard extends AppCompatActivity {
                 }
 
                 @Override
-                public void clearView(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder){
-                    //Called by the ItemTouchHelper when the user interaction with an element is over and it also completed its animation
+                public void clearView(@NonNull RecyclerView recyclerView,
+                                      @NonNull RecyclerView.ViewHolder viewHolder) {
+                    //Called by the ItemTouchHelper when the user interaction with an element is
+                    //over and it also completed its animation
                     //This method hides the background when the animation is over
                     final View backgroundView = ((Adapter.CityHolder) viewHolder).cdBackground;
                     final View foregroundView = ((Adapter.CityHolder) viewHolder).cdSwipe;
@@ -131,7 +140,8 @@ public class SwipeCard extends AppCompatActivity {
                     getDefaultUIUtil().clearView(foregroundView);
                 }
 
-                private void drawBackground(RecyclerView.ViewHolder viewHolder, float dX, int actionState) {
+                private void drawBackground(RecyclerView.ViewHolder viewHolder,
+                                            float dX, int actionState) {
                     //Method that draws the background
                     final View backgroundView = ((Adapter.CityHolder) viewHolder).cdBackground;
 
@@ -147,14 +157,14 @@ public class SwipeCard extends AppCompatActivity {
         }
     }
 
-    class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+    static class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private List<City> cityList;
 
-        Adapter(List<City> cities){
+        Adapter(List<City> cities) {
             this.cityList = cities;
         }
 
-        public List<City> getList(){
+        List<City> getList() {
             return this.cityList;
         }
 
@@ -175,7 +185,7 @@ public class SwipeCard extends AppCompatActivity {
             ((CityHolder) holder).tvText.setText(cityList.get(position).name);
             ((CityHolder) holder).ivCity.setImageResource(cityList.get(position).imageId);
 
-            if(cityList.get(position).favorite){
+            if (cityList.get(position).favorite) {
                 ((CityHolder) holder).ivFavorite.setVisibility(View.VISIBLE);
             } else {
                 ((CityHolder) holder).ivFavorite.setVisibility(View.GONE);
@@ -187,7 +197,7 @@ public class SwipeCard extends AppCompatActivity {
             return cityList.size();
         }
 
-        class CityHolder extends RecyclerView.ViewHolder{
+        static class CityHolder extends RecyclerView.ViewHolder {
             final MaterialCardView cdBackground;
             final MaterialCardView cdSwipe;
             ImageView ivFavorite;
@@ -206,7 +216,7 @@ public class SwipeCard extends AppCompatActivity {
         }
     }
 
-    class City {
+    static class City {
         public String name;
         boolean favorite = false;
         int imageId;

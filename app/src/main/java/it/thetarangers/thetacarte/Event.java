@@ -10,7 +10,7 @@ public class Event implements Parcelable {
     public String eventLocation;
     public int imageId;
 
-    public Event(String eventName, String eventDescription, int imageId, String eventLocation){
+    public Event(String eventName, String eventDescription, int imageId, String eventLocation) {
         this.eventName = eventName;
         this.eventDescription = eventDescription;
         this.imageId = imageId;

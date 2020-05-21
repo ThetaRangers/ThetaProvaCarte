@@ -34,7 +34,7 @@ public class EventsActivity extends AppCompatActivity {
     class Holder {
         final RecyclerView rvEvents;
 
-        private Holder(){
+        private Holder() {
             rvEvents = findViewById(R.id.rvEvents);
 
             RecyclerView.LayoutManager layoutManager = new GridLayoutManager(EventsActivity.this, 2);
@@ -43,20 +43,22 @@ public class EventsActivity extends AppCompatActivity {
             rvEvents.setAdapter(new EventsAdapter(getEvents()));
         }
 
-        private List<Event> getEvents(){
+        private List<Event> getEvents() {
             List<Event> eventsList = new ArrayList<>();
 
-            eventsList.add(new Event("Evento1", "Eventone1", R.drawable.patrica, "Patrica"));
-            eventsList.add(new Event("Evento2", "Eventone2", R.drawable.campoli, "Campoli Appennino"));
+            eventsList.add(new Event("Evento1", "Eventone1",
+                    R.drawable.patrica, "Patrica"));
+            eventsList.add(new Event("Evento2", "Eventone2",
+                    R.drawable.campoli, "Campoli Appennino"));
 
             return eventsList;
         }
     }
 
-    class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.Holder>{
+    class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.Holder> {
         List<Event> eventsList;
 
-        EventsAdapter(List<Event> eventsList){
+        EventsAdapter(List<Event> eventsList) {
             this.eventsList = eventsList;
         }
 
@@ -87,7 +89,7 @@ public class EventsActivity extends AppCompatActivity {
             return eventsList.size();
         }
 
-        class Holder extends RecyclerView.ViewHolder implements View.OnClickListener{
+        class Holder extends RecyclerView.ViewHolder implements View.OnClickListener {
             final TextView tvName;
             final TextView tvLocation;
             final ImageView ivPreview;
