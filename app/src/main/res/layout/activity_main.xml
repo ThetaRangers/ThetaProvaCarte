@@ -39,23 +39,22 @@
             android:id="@+id/btnEvents"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/margin_top_large"
             android:text="@string/btn_event" />
 
         <Button
             android:id="@+id/btnDrag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/margin_top_large"
             android:text="@string/btn_drag" />
 
         <Button
             android:id="@+id/btnSwipe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/margin_top_large"
             android:text="@string/btn_swipe" />
     </LinearLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
