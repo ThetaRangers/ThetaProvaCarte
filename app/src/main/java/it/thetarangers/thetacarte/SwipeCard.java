@@ -71,12 +71,12 @@ public class SwipeCard extends AppCompatActivity {
 
                         if (city.favorite) {
                             Toast.makeText(SwipeCard.this,
-                                    String.format("%s removed from favorites", city.name),
+                                    String.format("%s " + getString(R.string.removed_favorite), city.name),
                                     Toast.LENGTH_SHORT).show();
                             cities.get(position).favorite = false;
                         } else {
                             Toast.makeText(SwipeCard.this,
-                                    String.format("%s added to favorites", city.name),
+                                    String.format("%s " + getString(R.string.added_favorite), city.name),
                                     Toast.LENGTH_SHORT).show();
                             cities.get(position).favorite = true;
                         }

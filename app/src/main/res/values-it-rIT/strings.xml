@@ -6,4 +6,6 @@
     <string name="btn_list">Lista</string>
     <string name="btn_event">Eventi</string>
     <string name="btn_generate">Genera card</string>
+    <string name="removed_favorite">rimossa dai preferiti</string>
+    <string name="added_favorite">aggiunta ai preferiti</string>
 </resources>
