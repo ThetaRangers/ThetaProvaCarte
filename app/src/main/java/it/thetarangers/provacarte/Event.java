@@ -1,4 +1,4 @@
-package it.ferrarally.provacarte;
+package it.thetarangers.provacarte;
 
 
 import android.os.Parcel;
