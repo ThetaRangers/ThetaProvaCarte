@@ -5,4 +5,5 @@
     <string name="label_events">Eventi</string>
     <string name="btn_list">Lista</string>
     <string name="btn_event">Eventi</string>
+    <string name="btn_generate">Genera card</string>
 </resources>

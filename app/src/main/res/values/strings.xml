@@ -7,4 +7,5 @@
     <string name="btn_event">Events</string>
     <string name="btn_drag" translatable="false">Drag</string>
     <string name="btn_swipe" translatable="false">Swipe</string>
+    <string name="btn_generate">Generate card</string>
 </resources>
