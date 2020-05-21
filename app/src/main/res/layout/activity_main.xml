@@ -13,6 +13,7 @@
         android:layout_marginStart="@dimen/margin_left_medium"
         android:layout_marginBottom="@dimen/margin_bottom_medium"
         android:backgroundTint="#00FFFFFF"
+        android:contentDescription="@string/iv_content_description"
         android:tint="?colorOnBackground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,28 +33,28 @@
             android:id="@+id/btnList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="List" />
+            android:text="@string/btn_list" />
 
         <Button
             android:id="@+id/btnEvents"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="@string/label_events" />
+            android:text="@string/btn_event" />
 
         <Button
             android:id="@+id/btnDrag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Drag" />
+            android:text="@string/btn_drag" />
 
         <Button
             android:id="@+id/btnSwipe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Swipe" />
+            android:text="@string/btn_swipe" />
     </LinearLayout>
 
 

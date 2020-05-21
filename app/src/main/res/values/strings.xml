@@ -1,6 +1,11 @@
 <resources>
-    <string name="app_name">ThetaCarte</string>
-    <string name="title_activity_list">ListActivity</string>
-
+    <string name="app_name" translatable="false">ThetaCarte</string>
+    <string name="title_activity_list" translatable="false">ListActivity</string>
+    <string name="tv_deafult">This is a text</string>
+    <string name="iv_content_description">This is an image</string>
     <string name="label_events">Events</string>
+    <string name="btn_list">List</string>
+    <string name="btn_event">Events</string>
+    <string name="btn_drag" translatable="false">Drag</string>
+    <string name="btn_swipe" translatable="false">Swipe</string>
 </resources>
