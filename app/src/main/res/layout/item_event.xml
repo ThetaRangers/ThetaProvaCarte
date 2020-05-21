@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -9,9 +8,7 @@
         android:id="@+id/card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:layout_marginTop="@dimen/card_margin_medium"
-        android:layout_marginBottom="@dimen/card_margin_medium"
+        android:layout_margin="@dimen/card_margin_medium"
         android:clickable="true"
         android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -27,7 +24,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp"
+                android:padding="@dimen/padding_medium"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ivPreview">
@@ -37,7 +34,7 @@
                     android:id="@+id/tvName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Evento"
+                    android:text="@string/tv_default"
                     android:textAppearance="?attr/textAppearanceHeadline6"
                     android:transitionName="nameTransition" />
 
@@ -45,8 +42,8 @@
                     android:id="@+id/tvLocation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="Luogo"
+                    android:layout_marginTop="@dimen/margin_top_medium"
+                    android:text="@string/tv_default"
                     android:textAppearance="?attr/textAppearanceBody2"
                     android:textColor="?android:attr/textColorSecondary"
                     android:transitionName="locationTransition" />
@@ -57,6 +54,7 @@
                 android:id="@+id/ivPreview"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:contentDescription="@string/iv_content_description"
                 android:scaleType="centerCrop"
                 android:transitionName="imageExpansion"
                 app:layout_constraintBottom_toTopOf="@+id/guideline4"
