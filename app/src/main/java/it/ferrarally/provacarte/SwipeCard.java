@@ -57,6 +57,9 @@ public class SwipeCard extends AppCompatActivity {
 
                 @Override
                 public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                    //Method called when the ViewHolder is being swiped
+
+                    //Different actions with different swipe directions
                     if (direction == ItemTouchHelper.RIGHT) {
                         int position = viewHolder.getAdapterPosition();
                         City city = cities.get(position);
@@ -68,26 +71,31 @@ public class SwipeCard extends AppCompatActivity {
                             Toast.makeText(SwipeCard.this, String.format("%s added to favorites", city.name), Toast.LENGTH_SHORT).show();
                             cities.get(position).favorite = true;
                         }
-
                     }
 
                     //Makes the item reappear after swipe
                     adapter.notifyItemChanged(viewHolder.getAdapterPosition());
                 }
 
+
                 @Override
                 public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
+                    //Method called when the ViewHolder swiped or dragged by the ItemTouchHelper is changed
                     if (viewHolder != null){
                         final View foregroundView = ((Adapter.CityHolder) viewHolder).cdSwipe;
 
+                        //This method returns the itemTouchUiUtil of the itemTouchHelper
                         getDefaultUIUtil().onSelected(foregroundView);
                     }
                 }
 
+
                 @Override
-                public void onChildDraw(Canvas c, RecyclerView recyclerView,
-                                        RecyclerView.ViewHolder viewHolder, float dX, float dY,
+                public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView,
+                                        @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY,
                                         int actionState, boolean isCurrentlyActive) {
+                    //Method called by ItemTouchHelper when on RecycleView's onDraw callback
+                    //This method draws the card background while being swiped
                     final View foregroundView = ((Adapter.CityHolder) viewHolder).cdSwipe;
 
                     drawBackground(viewHolder, dX, actionState);
@@ -97,9 +105,10 @@ public class SwipeCard extends AppCompatActivity {
                 }
 
                 @Override
-                public void onChildDrawOver(Canvas c, RecyclerView recyclerView,
+                public void onChildDrawOver(@NonNull Canvas c, @NonNull RecyclerView recyclerView,
                                             RecyclerView.ViewHolder viewHolder, float dX, float dY,
                                             int actionState, boolean isCurrentlyActive) {
+                    //Method called by ItemTouchHelper when on RecycleView's onDraw callback
                     final View foregroundView = ((Adapter.CityHolder) viewHolder).cdSwipe;
 
                     drawBackground(viewHolder, dX, actionState);
@@ -109,25 +118,23 @@ public class SwipeCard extends AppCompatActivity {
                 }
 
                 @Override
-                public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder){
+                public void clearView(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder){
+                    //Called by the ItemTouchHelper when the user interaction with an element is over and it also completed its animation
+                    //This method hides the background when the animation is over
                     final View backgroundView = ((Adapter.CityHolder) viewHolder).cdBackground;
                     final View foregroundView = ((Adapter.CityHolder) viewHolder).cdSwipe;
 
-                    // TODO: should animate out instead. how?
                     backgroundView.setRight(0);
-
 
                     getDefaultUIUtil().clearView(foregroundView);
                 }
 
                 private void drawBackground(RecyclerView.ViewHolder viewHolder, float dX, int actionState) {
+                    //Method that draws the background
                     final View backgroundView = ((Adapter.CityHolder) viewHolder).cdBackground;
 
                     if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
                         backgroundView.setRight((int) Math.max(dX, 0));
-
-                        /*if (dX > 0) backgroundView.setRight((int) dX);
-                        else backgroundView.setRight(backgroundView.getWidth() - (int) dX);*/
                     }
                 }
             };
@@ -175,13 +182,13 @@ public class SwipeCard extends AppCompatActivity {
         }
 
         class CityHolder extends RecyclerView.ViewHolder{
-            public final MaterialCardView cdBackground;
-            public final MaterialCardView cdSwipe;
-            public ImageView ivFavorite;
-            public final ImageView ivCity;
+            final MaterialCardView cdBackground;
+            final MaterialCardView cdSwipe;
+            ImageView ivFavorite;
+            final ImageView ivCity;
             final TextView tvText;
 
-            public CityHolder(@NonNull View itemView) {
+            CityHolder(@NonNull View itemView) {
                 super(itemView);
 
                 tvText = itemView.findViewById(R.id.tvName);
@@ -195,10 +202,10 @@ public class SwipeCard extends AppCompatActivity {
 
     class City {
         public String name;
-        public boolean favorite = false;
-        public int imageId;
+        boolean favorite = false;
+        int imageId;
 
-        public City(String name, int imageId) {
+        City(String name, int imageId) {
             this.name = name;
             this.imageId = imageId;
         }
