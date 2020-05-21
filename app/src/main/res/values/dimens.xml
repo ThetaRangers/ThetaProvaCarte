@@ -2,4 +2,10 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="margin_bottom_medium">8dp</dimen>
     <dimen name="margin_left_medium">8dp</dimen>
+    <dimen name="margin_top_medium">8dp</dimen>
+    <dimen name="margin_right_medium">8dp</dimen>
+    <dimen name="margin_right_large">16dp</dimen>
+    <dimen name="margin_top_large">16dp</dimen>
+    <dimen name="card_margin_medium">8dp</dimen>
+    <dimen name="margin_left_large">16dp</dimen>
 </resources>

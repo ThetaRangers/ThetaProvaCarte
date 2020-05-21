@@ -25,67 +25,50 @@ public class MainActivity extends AppCompatActivity {
                 == Configuration.UI_MODE_NIGHT_YES;
     }
 
-    class Holder {
+    class Holder implements View.OnClickListener{
         Holder() {
 
             final Button buttonList = findViewById(R.id.btnList);
-            buttonList.setOnClickListener(new View.OnClickListener(){
-                @Override
-                public void onClick(View v) {
-                        Intent intent = new Intent(MainActivity.this, ListActivity.class);
-
-                        startActivity(intent);
-
-
-
-                }
-            });
+            buttonList.setOnClickListener(this);
 
             final Button buttonDrag = findViewById(R.id.btnDrag);
-            buttonDrag.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //Intent intent = new Intent(MainActivity.this, DragExample.class);
-
-                   //Intent intent = new Intent(MainActivity.this, DragSecondExample.class);
-
-                   Intent intent = new Intent(MainActivity.this, DragActivity.class);
-
-                    startActivity(intent);
-                }
-            });
+            buttonDrag.setOnClickListener(this);
 
             final Button buttonEvents = findViewById(R.id.btnEvents);
-            buttonEvents.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(MainActivity.this, EventsActivity.class);
-
-                    startActivity(intent);
-                }
-            });
+            buttonEvents.setOnClickListener(this);
 
             final Button buttonSwipe = findViewById(R.id.btnSwipe);
-            buttonSwipe.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(MainActivity.this, SwipeCard.class);
-
-                    startActivity(intent);
-                }
-            });
+            buttonSwipe.setOnClickListener(this);
 
             final ImageButton buttonTheme = findViewById(R.id.btnTheme);
-            buttonTheme.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (isNightMode()) {
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                    } else {
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                    }
+            buttonTheme.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if(v.getId() == R.id.btnList){
+                Intent intent = new Intent(MainActivity.this, ListActivity.class);
+
+                startActivity(intent);
+            } else if(v.getId() == R.id.btnEvents){
+                Intent intent = new Intent(MainActivity.this, EventsActivity.class);
+
+                startActivity(intent);
+            } else if(v.getId() == R.id.btnDrag){
+                Intent intent = new Intent(MainActivity.this, DragActivity.class);
+
+                startActivity(intent);
+            } else if(v.getId() == R.id.btnSwipe){
+                Intent intent = new Intent(MainActivity.this, SwipeCard.class);
+
+                startActivity(intent);
+            } else if(v.getId() == R.id.btnTheme){
+                if (isNightMode()) {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                } else {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                 }
-            });
+            }
         }
     }
 }
