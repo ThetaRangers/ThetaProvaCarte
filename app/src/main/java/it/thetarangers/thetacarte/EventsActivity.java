@@ -46,9 +46,20 @@ public class EventsActivity extends AppCompatActivity {
         private List<Event> getEvents() {
             List<Event> eventsList = new ArrayList<>();
 
-            eventsList.add(new Event("Evento1", "Eventone1",
+            eventsList.add(new Event("San Rocco", "La festa di San Rocco, patrono di Patrica, è " +
+                    "la più seguita dalla popolazione locale. Il 16 agosto di ogni anno la processione con la stauta del santo " +
+                    "si snoda lungo le strade del paese con i portatori in veste biancaù" +
+                    " e le donne che trasportano enormi candele. La sera si festeggia in piazza con la banda musicale.",
                     R.drawable.patrica, "Patrica"));
-            eventsList.add(new Event("Evento2", "Eventone2",
+            eventsList.add(new Event("Festa del tartufo", "A Campoli Appennino (Fr) il 9 e 10 e il 16 " +
+                    "e 17 Novembre 2019 si rinnova il doppio appuntamento con la Fiera del Tartufo di Campoli Appennino " +
+                    "bianco e nero pregiato, il re dei prodotti tipici della Valle di Comino, sul versante laziale del " +
+                    "Parco Nazionale d’Abruzzo, Lazio e Molise. Una festa dedicata a tutte le famiglie con animazione per " +
+                    "bambini, musica popolare, stand enogastronomici, artigianato artistico e tante sorprese. Prezioso e " +
+                    "pregiato, raro e delicato, intenso e fragrante, il tartufo di Campoli Appennino in passato veniva spesso" +
+                    " dato in dono a principi e re quando si recavano in viaggio in Ciociaria. La storia di questo prodotto " +
+                    "spontaneo si fonde nelle origini del piccolo centro ciociaro, tanto da poter essere considerato il simbolo della cultura e della tradizione del paese. Le varietà che nascono spontanee " +
+                    "nei boschi del territorio possono essere il noto nero pregiato e il più raro bianco.",
                     R.drawable.campoli, "Campoli"));
 
             return eventsList;
