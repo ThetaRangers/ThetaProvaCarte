@@ -49,7 +49,7 @@ public class EventsActivity extends AppCompatActivity {
             eventsList.add(new Event("Evento1", "Eventone1",
                     R.drawable.patrica, "Patrica"));
             eventsList.add(new Event("Evento2", "Eventone2",
-                    R.drawable.campoli, "Campoli Appennino"));
+                    R.drawable.campoli, "Campoli"));
 
             return eventsList;
         }
