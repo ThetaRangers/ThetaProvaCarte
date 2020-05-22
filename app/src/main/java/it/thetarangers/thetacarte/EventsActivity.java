@@ -60,7 +60,7 @@ public class EventsActivity extends AppCompatActivity {
                     " dato in dono a principi e re quando si recavano in viaggio in Ciociaria. La storia di questo prodotto " +
                     "spontaneo si fonde nelle origini del piccolo centro ciociaro, tanto da poter essere considerato il simbolo della cultura e della tradizione del paese. Le varietà che nascono spontanee " +
                     "nei boschi del territorio possono essere il noto nero pregiato e il più raro bianco.",
-                    R.drawable.campoli, "Campoli"));
+                    R.drawable.campoli, "Campoli Appennino"));
 
             return eventsList;
         }
