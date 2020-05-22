@@ -34,6 +34,7 @@
                     android:id="@+id/tvName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:minLines="2"
                     android:text="@string/tv_default"
                     android:textAppearance="?attr/textAppearanceHeadline6"
                     android:transitionName="nameTransition" />
@@ -43,6 +44,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_top_medium"
+                    android:minLines="2"
                     android:text="@string/tv_default"
                     android:textAppearance="?attr/textAppearanceBody2"
                     android:textColor="?android:attr/textColorSecondary"
@@ -68,7 +70,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.7" />
+                app:layout_constraintGuide_percent="0.55" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
