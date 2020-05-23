@@ -1,2 +1,2 @@
 # ThetaProvaCarte
-Esempio di carte per l'esonero mobile programing 2020
+Esempio di Material Design, MaterialCardView e Colori per l'esonero mobile programing 2020
